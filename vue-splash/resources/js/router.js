@@ -23,6 +23,7 @@ const routes = [
 
 // VurRouterのインスタンス作成しroutesを渡す
 const router = new VueRouter({
+	mode: 'history',
 	routes
 })
 
