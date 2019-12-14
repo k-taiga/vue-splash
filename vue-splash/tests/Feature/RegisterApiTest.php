@@ -13,7 +13,7 @@ class RegisterApiTest extends TestCase
     use RefreshDatabase;
 
 
-    public function should_new_use_regist()
+    public function test_new_user_regist()
     {
 
         $data = [
@@ -26,9 +26,8 @@ class RegisterApiTest extends TestCase
         // SPAのため画面遷移はせずjsonで$dataを送って、それがdbに登録されているかを見る
         $response = $this->json('POST', route('register'), $data);
         $user = User::first();
-        $this->assetEquals($data['name'], $user->name);
-        $response->assertStatus(200)
-                 ->assertJson(['name'-> $user->name]);
-        ;
+        $this->assertEquals($data['name'], $user->name);
+        $response->assertStatus(201)
+                 ->assertJson(['name' => $user->name]);
     }
 }
