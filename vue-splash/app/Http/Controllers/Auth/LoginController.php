@@ -20,6 +20,7 @@ class LoginController extends Controller
     |
     */
 
+    // traitのためこっちのメソッドの記述でオーバーライドできる
     use AuthenticatesUsers;
 
     /**
@@ -39,5 +40,8 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-    protected function
+    protected function authenticated(Request $request, $user)
+    {
+        return $user;
+    }
 }
