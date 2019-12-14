@@ -30,6 +30,7 @@ class LoginApiTest extends TestCase
             'password' => 'secret',
         ]);
 
+        // 200のPOST: 操作の結果を表すリソースがメッセージ本文で送信されたという意味
         $response->assertStatus(200)
                  ->assertJson(['name' => $this->user->name]);
 

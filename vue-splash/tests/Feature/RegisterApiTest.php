@@ -27,6 +27,7 @@ class RegisterApiTest extends TestCase
         $response = $this->json('POST', route('register'), $data);
         $user = User::first();
         $this->assertEquals($data['name'], $user->name);
+        // 201: リクエストは成功し、その結果新たなリソースが作成されたという意味
         $response->assertStatus(201)
                  ->assertJson(['name' => $user->name]);
     }
