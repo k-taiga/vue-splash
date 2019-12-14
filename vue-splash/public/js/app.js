@@ -128,9 +128,75 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/pages/Login.vue?vue&type=script&lang=js& ***!
   \***********************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, exports) {
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
 
-throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /var/www/html/vue-splash/resources/js/pages/Login.vue: Unexpected token, expected \",\" (37:2)\n\n\u001b[0m \u001b[90m 35 | \u001b[39m    }\u001b[0m\n\u001b[0m \u001b[90m 36 | \u001b[39m  }\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 37 | \u001b[39m  methods\u001b[33m:\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m  \u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 38 | \u001b[39m    login () {\u001b[0m\n\u001b[0m \u001b[90m 39 | \u001b[39m      console\u001b[33m.\u001b[39mlog(\u001b[36mthis\u001b[39m\u001b[33m.\u001b[39mloginForm)\u001b[0m\n\u001b[0m \u001b[90m 40 | \u001b[39m    }\u001b[0m\n    at Parser.raise (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:6983:17)\n    at Parser.unexpected (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8376:16)\n    at Parser.expect (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8362:28)\n    at Parser.parseObj (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9949:14)\n    at Parser.parseExprAtom (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9580:28)\n    at Parser.parseExprSubscripts (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9213:23)\n    at Parser.parseMaybeUnary (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9193:21)\n    at Parser.parseExprOps (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9059:23)\n    at Parser.parseMaybeConditional (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9032:23)\n    at Parser.parseMaybeAssign (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8978:21)\n    at Parser.parseExportDefaultExpression (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11846:24)\n    at Parser.parseExport (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11748:31)\n    at Parser.parseStatementContent (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10770:27)\n    at Parser.parseStatement (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10666:17)\n    at Parser.parseBlockOrModuleBlockBody (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11242:25)\n    at Parser.parseBlockBody (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11229:10)\n    at Parser.parseTopLevel (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10597:10)\n    at Parser.parse (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:12107:10)\n    at parse (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:12158:38)\n    at parser (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/normalize-file.js:168:34)\n    at normalizeFile (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/normalize-file.js:102:11)\n    at runSync (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/var/www/html/vue-splash/node_modules/@babel/core/lib/transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  data: function data() {
+    return {
+      tab: 1,
+      loginForm: {
+        email: '',
+        password: ''
+      },
+      registerForm: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
+      }
+    };
+  },
+  methods: {
+    login: function login() {
+      console.log(this.loginForm);
+    },
+    register: function register() {
+      console.log(this.registerForm);
+    }
+  }
+});
 
 /***/ }),
 
@@ -901,7 +967,148 @@ var render = function() {
         ],
         staticClass: "panel"
       },
-      [_vm._v("Register Form")]
+      [
+        _vm._v("Register Form\n    "),
+        _c(
+          "div",
+          {
+            directives: [
+              {
+                name: "show",
+                rawName: "v-show",
+                value: _vm.tab === 2,
+                expression: "tab === 2"
+              }
+            ],
+            staticClass: "panel"
+          },
+          [
+            _c(
+              "form",
+              {
+                staticClass: "form",
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.register($event)
+                  }
+                }
+              },
+              [
+                _c("label", { attrs: { for: "username" } }, [_vm._v("Name")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.name,
+                      expression: "registerForm.name"
+                    }
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "text", id: "username" },
+                  domProps: { value: _vm.registerForm.name },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.registerForm, "name", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "email" } }, [_vm._v("Email")]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.email,
+                      expression: "registerForm.email"
+                    }
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "text", id: "email" },
+                  domProps: { value: _vm.registerForm.email },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(_vm.registerForm, "email", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "password" } }, [
+                  _vm._v("Password")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.password,
+                      expression: "registerForm.password"
+                    }
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "password", id: "password" },
+                  domProps: { value: _vm.registerForm.password },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.registerForm,
+                        "password",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _c("label", { attrs: { for: "password-confirmation" } }, [
+                  _vm._v("Password (confirm)")
+                ]),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.registerForm.password_confirmation,
+                      expression: "registerForm.password_confirmation"
+                    }
+                  ],
+                  staticClass: "form__item",
+                  attrs: { type: "password", id: "password-confirmation" },
+                  domProps: { value: _vm.registerForm.password_confirmation },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
+                      }
+                      _vm.$set(
+                        _vm.registerForm,
+                        "password_confirmation",
+                        $event.target.value
+                      )
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm._m(1)
+              ]
+            )
+          ]
+        )
+      ]
     )
   ])
 }
@@ -915,6 +1122,18 @@ var staticRenderFns = [
         "button",
         { staticClass: "button button--inverse", attrs: { type: "submit" } },
         [_vm._v("login")]
+      )
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "form__button" }, [
+      _c(
+        "button",
+        { staticClass: "button button--inverse", attrs: { type: "submit" } },
+        [_vm._v("register")]
       )
     ])
   }
