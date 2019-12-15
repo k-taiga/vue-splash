@@ -40,34 +40,36 @@
 </template>
 
 <script>
-  export default {
-    data () {
-      return {
-        tab: 1,
-        loginForm: {
-          email: '',
-          password: ''
-        },
-        registerForm: {
-          name: '',
-          email: '',
-          password: '',
-          password_confirmation: ''
-        }
-      }
-    },
-    methods: {
-      login () {
-        console.log(this.loginForm)
+export default {
+  data () {
+    return {
+      tab: 1,
+      loginForm: {
+        email: '',
+        password: ''
       },
-      async register () {
-        // dispatchでstoreのメソッド呼び出し 第一引数はアクション,第二引数はLogin.vueで入力したFormの入力値
-        // store/index.jsでVue.use(Vuex)をしているため、$storeを呼び出せる
-        await this.$store.dispatch('auth/register', this.registerForm)
-        // awaitで非同期が返ってきたらrouterのpushメソッドでrouter.jsで定義した/のルートのディレクトリに移動する
-        // これもVue.use(VueRouter)で記述しているため使える
-        this.$router.push('/')
+      registerForm: {
+        name: '',
+        email: '',
+        password: '',
+        password_confirmation: ''
       }
     }
+  },
+  methods: {
+    async login () {
+      // authストアのloginアクションを呼び出す
+      await this.$store.dispatch('auth/login', this.loginForm)
+      this.$router.push('/')
+    },
+    async register () {
+      // dispatchでstoreのメソッド呼び出し 第一引数はアクション,第二引数はLogin.vueで入力したFormの入力値
+      // store/index.jsでVue.use(Vuex)をしているため、$storeを呼び出せる
+      await this.$store.dispatch('auth/register', this.registerForm)
+      // awaitで非同期が返ってきたらrouterのpushメソッドでrouter.jsで定義した/のルートのディレクトリに移動する
+      // これもVue.use(VueRouter)で記述しているため使える
+      this.$router.push('/')
+    }
   }
+}
 </script>

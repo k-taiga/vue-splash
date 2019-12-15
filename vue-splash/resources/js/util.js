@@ -3,7 +3,7 @@
  * @param {String} searchKey 検索するキー
  * @returns {String} キーに対応する値
  */
- export function getCookieValue (searchKey) {
+export function getCookieValue (searchKey) {
   if (typeof searchKey === 'undefined') {
     return ''
   }
