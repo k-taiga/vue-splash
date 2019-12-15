@@ -2,7 +2,14 @@ const state = {
   user: null
 }
 
-const getters = {}
+// stateそのものではなくstateから演算した結果を取得したい
+const getters = {
+  // ログインチェックのgetter
+  // 確実に真偽値を返すために二重否定
+  check: state => !! state.user,
+  // stateにuserがあればそれを返す、なければ空文字を返す
+  username: state => state.user ? state.user.name: ''
+}
 
 const mutations = {
 // mutationsの第一引数は必ずステートの値
