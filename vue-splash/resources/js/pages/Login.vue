@@ -34,34 +34,40 @@
             <button type="submit" class="button button--inverse">register</button>
           </div>
         </form>
-      </div></div>
+      </div>
     </div>
-  </template>
+  </div>
+</template>
 
-  <script>
-    export default {
-      data () {
-        return {
-          tab: 1,
-          loginForm: {
-            email: '',
-            password: ''
-          },
-          registerForm: {
-            name: '',
-            email: '',
-            password: '',
-            password_confirmation: ''
-          }
-        }
-      },
-      methods: {
-        login () {
-          console.log(this.loginForm)
+<script>
+  export default {
+    data () {
+      return {
+        tab: 1,
+        loginForm: {
+          email: '',
+          password: ''
         },
-        register () {
-          console.log(this.registerForm)
+        registerForm: {
+          name: '',
+          email: '',
+          password: '',
+          password_confirmation: ''
         }
       }
+    },
+    methods: {
+      login () {
+        console.log(this.loginForm)
+      },
+      async register () {
+        // dispatchでstoreのメソッド呼び出し 第一引数はアクション,第二引数はLogin.vueで入力したFormの入力値
+        // store/index.jsでVue.use(Vuex)をしているため、$storeを呼び出せる
+        await this.$store.dispatch('auth/register', this.registerForm)
+        // awaitで非同期が返ってきたらrouterのpushメソッドでrouter.jsで定義した/のルートのディレクトリに移動する
+        // これもVue.use(VueRouter)で記述しているため使える
+        this.$router.push('/')
+      }
     }
-  </script>
+  }
+</script>

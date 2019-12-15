@@ -6,6 +6,7 @@ import Vue from 'vue'
 import router from './router'
 
 // Vuexのstoreをインポート
+// store/index.jsでVuex読み込む（storeの実態はauth.js)
 import store from './store'
 
 // ルートコンポーネントインポート

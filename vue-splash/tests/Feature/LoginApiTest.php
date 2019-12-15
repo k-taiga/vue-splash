@@ -17,7 +17,6 @@ class LoginApiTest extends TestCase
 
         // factoryでテストユーザー作成
         $this->user = factory(User::class)->create();
---sav
     }
 
 

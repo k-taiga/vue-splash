@@ -15,14 +15,15 @@ const mutations = {
 const actions = {
   // actionsの第一引数はcontext
   async register (context, data) {
-    // 会員登録のAPIをPOSTで呼び出し
-    const response = await axios.post('/api/register', data)
+    // 会員登録のAPIをPOSTで非同期で呼び出してその結果を待つ
+        const response = await axios.post('/api/register', data)
     // action -> commtiでmutation呼び出し -> userステートの更新という流れ
     context.commit('setUser', response.data)
   }
 }
 
 export default {
+  // これでauth/regiterとかで一意に呼び出せる
   namespaced: true,
   state,
   getters,

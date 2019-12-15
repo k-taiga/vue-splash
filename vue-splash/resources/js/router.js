@@ -9,7 +9,7 @@ import Login from './pages/Login.vue'
 // <RouterView />が使えるようになる
 Vue.use(VueRouter)
 
-// パスと使用するコンポーネントを紐づける　web.phpのようなもの
+// パスと使用するコンポーネントを紐づける web.phpのようなもの
 const routes = [
 	{
 		path: '/',
