@@ -56,11 +56,21 @@ export default {
       }
     }
   },
+  // 算出プロパティでauthのapiステートを参照する
+  computed: {
+    apiStatus () {
+      return this.$store.state.auth.apiStatus
+    }
+  },
   methods: {
     async login () {
       // authストアのloginアクションを呼び出す
       await this.$store.dispatch('auth/login', this.loginForm)
-      this.$router.push('/')
+
+      // apiStatusがtrueの場合のみTOPページに移動する
+      if (this.apiStatus) {
+        this.$router.push('/')
+      }
     },
     async register () {
       // dispatchでstoreのメソッド呼び出し 第一引数はアクション,第二引数はLogin.vueで入力したFormの入力値

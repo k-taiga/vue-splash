@@ -1,5 +1,9 @@
+// 定義したエラーのcodeをインポート
+import { OK } from '../util'
+
 const state = {
-  user: null
+  user: null,
+  apiStatus: null
 }
 
 // stateそのものではなくstateから演算した結果を取得したい
@@ -28,8 +32,21 @@ const actions = {
     context.commit('setUser', response.data)
   },
   async login (context, data) {
-    const response = await axios.post('/api/login', data)
-    context.commit('setUser', response.data)
+    context.commit('setApiStatus', null)
+    //　通信成功でも失敗でもレスポンスを返す
+    const response = await axios.post('/api/login', data).catch(err => err.response || err)
+
+    if (response.status === OK ) {
+      // 成功ならtrue
+      context.commit('setApiStatus', true)
+      context.commit('setUser', response.data)
+      return false
+    }
+
+    // 失敗ならfalse
+     context.commit('setApiStatus', false)
+     // 別のストアのミューテーションにコミットする場合は{ root:true }が必要
+     context.commit('setUser', response.status, { root:true })
   },
   async logout (context) {
     const response = await axios.post('/api/logout')
