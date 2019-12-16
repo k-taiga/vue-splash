@@ -1,9 +1,10 @@
 // 定義したエラーのcodeをインポート
-import { OK } from '../util'
+import { OK, UNPROCESSABLE_ENTITY } from '../util'
 
 const state = {
   user: null,
-  apiStatus: null
+  apiStatus: null,
+  loginErrorMessages: null
 }
 
 // stateそのものではなくstateから演算した結果を取得したい
@@ -20,6 +21,12 @@ const mutations = {
 // 実引数は第二引数
   setUser (state, user) {
     state.user = user
+  },
+  setApiStatus (state, status) {
+    state.apiStatus = status
+  },
+  setLoginErrorMessages (state, messages) {
+    state.loginErrorMessages = messages
   }
 }
 
@@ -42,11 +49,17 @@ const actions = {
       context.commit('setUser', response.data)
       return false
     }
-
     // 失敗ならfalse
      context.commit('setApiStatus', false)
-     // 別のストアのミューテーションにコミットする場合は{ root:true }が必要
-     context.commit('setUser', response.status, { root:true })
+
+     if (response.status === UNPROCESSABLE_ENTITY) {
+      // バリデーションエラーのためルートで移動せず同一コンポーネント内でエラーを出すために、loginErrorMessages にエラーメッセージをセット
+        context.commit('setLoginErrorMessages', response.data.errors)
+     }else {
+       // エラーならerrorのストアのステートを更新する
+       // 別のストアのミューテーションにコミットする場合は{ root:true }が必要
+       context.commit('error/setCode', response.status, { root:true })
+     }
   },
   async logout (context) {
     const response = await axios.post('/api/logout')

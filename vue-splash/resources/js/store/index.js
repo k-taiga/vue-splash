@@ -1,7 +1,9 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
 
+// ストア
 import auth from './auth'
+import error from './error'
 
 Vue.use(Vuex)
 

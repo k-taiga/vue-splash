@@ -8,6 +8,14 @@
       <div class="panel" v-show="tab === 1">
         <!-- デフォルトのForm送信の挙動をキャンセルする -->
         <form class="form" @submit.prevent="login">
+          <div v-if="loginErrors" class="errors">
+            <ul v-if="loginErrors.email">
+              <li v-for="msg in loginErrors.email" :key="msg">{{ msg }}</li>
+            </ul>
+            <ul v-if="loginErrors.password">
+              <li v-for="msg in loginErrors.password" :key="msg">{{ msg }}</li>
+            </ul>
+          </div>
           <label for="login-email">Email</label>
           <!-- v-modelでデータ変数とinput要素を紐付ける -->
           <input type="text" class="form__item" id="login-email" v-model="loginForm.email">
@@ -40,6 +48,8 @@
 </template>
 
 <script>
+// import { mapState } from 'vuex'
+
 export default {
   data () {
     return {
@@ -56,11 +66,21 @@ export default {
       }
     }
   },
-  // 算出プロパティでauthのapiステートを参照する
+  // 算出プロパティでauthステートを参照する
   computed: {
     apiStatus () {
       return this.$store.state.auth.apiStatus
+    },
+    loginErrors () {
+      return this.$store.state.auth.loginErrorMessages
     }
+
+    // mapStateで上記の記述をまとめられる
+    // 機能は算出プロパティとストアのステートをマッピングする
+    // ...mapState({
+    //   apiStatus: state => state.auth.apiStatus,
+    //   loginErrors: state => state.auth.loginErrorMessages
+    // })
   },
   methods: {
     async login () {

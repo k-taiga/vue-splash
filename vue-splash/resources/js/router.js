@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 // ページのコンポーネントを取得
 import PhotoList from './pages/PhotoList.vue'
 import Login from './pages/Login.vue'
+import SystemError from './pages/errors/System.vue'
 
 // store(Vuex)をインストール
 import store from './store'
