@@ -20176,9 +20176,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var vue_router__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue-router */ "./node_modules/vue-router/dist/vue-router.esm.js");
 /* harmony import */ var _pages_PhotoList_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./pages/PhotoList.vue */ "./resources/js/pages/PhotoList.vue");
 /* harmony import */ var _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./pages/Login.vue */ "./resources/js/pages/Login.vue");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
 
  // ページのコンポーネントを取得
 
+
+ // store(Vuex)をインストール
 
  // VueRouterプラグインを使う宣言
 // <RouterView />が使えるようになる
@@ -20190,7 +20193,17 @@ var routes = [{
   component: _pages_PhotoList_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
 }, {
   path: '/login',
-  component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
+  component: _pages_Login_vue__WEBPACK_IMPORTED_MODULE_3__["default"],
+  // loginルートにアクセスしコンポーネントが切り替わる前にする処理
+  // toはアクセス先のルート、fromはアクセス元のルート、nextはルートの移動先
+  beforeEnter: function beforeEnter(to, from, next) {
+    // storeのauth/checkでgetterの値でログイン状態をチェックする
+    if (_store__WEBPACK_IMPORTED_MODULE_4__["default"].getters['auth/check']) {
+      next('/');
+    } else {
+      next();
+    }
+  }
 }]; // VurRouterのインスタンス作成しroutesを渡す
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
