@@ -13,3 +13,9 @@ window.axios.interceptors.request.use(config => {
   return config
 })
 
+// axiosのresponseインターセプターはレスポンスを受けた後の処理を上書きする
+// interceptorsで共通の処理をする
+window.axios.interceptors.response.use(
+  response => response,
+  error => error.response || error
+)

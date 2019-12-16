@@ -103,7 +103,7 @@ export default {
     clearError () {
       this.$store.commit('auth/seLoginErrorMessages', null)
     },
-    // Login.vueのコンポーネント作成じエラー文を消す
+    // Login.vueのコンポーネント作成時エラー文を消す
     created () {
       this.clearError()
     }
