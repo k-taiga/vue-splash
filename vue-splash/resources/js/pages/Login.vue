@@ -99,6 +99,13 @@ export default {
       // awaitで非同期が返ってきたらrouterのpushメソッドでrouter.jsで定義した/のルートのディレクトリに移動する
       // これもVue.use(VueRouter)で記述しているため使える
       this.$router.push('/')
+    },
+    clearError () {
+      this.$store.commit('auth/seLoginErrorMessages', null)
+    },
+    // Login.vueのコンポーネント作成じエラー文を消す
+    created () {
+      this.clearError()
     }
   }
 }

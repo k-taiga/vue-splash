@@ -56,7 +56,7 @@ const actions = {
       // バリデーションエラーのためルートで移動せず同一コンポーネント内でエラーを出すために、loginErrorMessages にエラーメッセージをセット
         context.commit('setLoginErrorMessages', response.data.errors)
      }else {
-       // エラーならerrorのストアのステートを更新する
+       // バリデーションエラー以外ならerrorストアのステートを更新する
        // 別のストアのミューテーションにコミットする場合は{ root:true }が必要
        context.commit('error/setCode', response.status, { root:true })
      }
