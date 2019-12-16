@@ -8,3 +8,9 @@ Route::post('/login', 'Auth\LoginController@login')->name('login');
 
 // ログアウト
 Route::post('/logout', 'Auth\LoginController@logout')->name('logout');
+
+// ログインしているユーザーを返すルート ただログインユーザーを返すだけなので、コントローラーじゃなくルーティングで記述
+Route::get('/user', function() {
+	// いなければnullを返すがHTTPレスポンスに変わるときに""になる
+	return Auth::user();
+})->name('user');

@@ -3235,12 +3235,12 @@ var render = function() {
         ? _c(
             "button",
             { staticClass: "button button--link", on: { click: _vm.logout } },
-            [_vm._v("Logout\n  ")]
+            [_vm._v("Logout\r\n  ")]
           )
         : _c(
             "RouterLink",
             { staticClass: "button button--link", attrs: { to: "/login" } },
-            [_vm._v("\n    Login / Register\n  ")]
+            [_vm._v("\r\n    Login / Register\r\n  ")]
           )
     ],
     1
