@@ -19829,12 +19829,15 @@ __webpack_require__.r(__webpack_exports__);
 
 "use strict";
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
-/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
-/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
-/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
+/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _bootstrap__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./bootstrap */ "./resources/js/bootstrap.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! vue */ "./node_modules/vue/dist/vue.common.js");
+/* harmony import */ var vue__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(vue__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _router__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./router */ "./resources/js/router.js");
+/* harmony import */ var _store__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./store */ "./resources/js/store/index.js");
+/* harmony import */ var _App_vue__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./App.vue */ "./resources/js/App.vue");
+
 
  // ルーティングの定義をインポート
 
@@ -19844,16 +19847,35 @@ __webpack_require__.r(__webpack_exports__);
  // ルートコンポーネントインポート
 
 
-var app = new vue__WEBPACK_IMPORTED_MODULE_1___default.a({
-  el: '#app',
-  router: _router__WEBPACK_IMPORTED_MODULE_2__["default"],
-  store: _store__WEBPACK_IMPORTED_MODULE_3__["default"],
-  components: {
-    App: _App_vue__WEBPACK_IMPORTED_MODULE_4__["default"]
-  },
-  //ルートコンポートの使用を宣言
-  template: '<App />'
-});
+
+var createApp = function createApp() {
+  return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function createApp$(_context) {
+    while (1) {
+      switch (_context.prev = _context.next) {
+        case 0:
+          _context.next = 2;
+          return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(_store__WEBPACK_IMPORTED_MODULE_4__["default"].dispatch('auth/currentUser')["catch"](function () {}));
+
+        case 2:
+          new vue__WEBPACK_IMPORTED_MODULE_2___default.a({
+            el: '#app',
+            router: _router__WEBPACK_IMPORTED_MODULE_3__["default"],
+            store: _store__WEBPACK_IMPORTED_MODULE_4__["default"],
+            components: {
+              App: _App_vue__WEBPACK_IMPORTED_MODULE_5__["default"]
+            },
+            template: '<App />'
+          });
+
+        case 3:
+        case "end":
+          return _context.stop();
+      }
+    }
+  });
+};
+
+createApp();
 
 /***/ }),
 
@@ -20273,6 +20295,28 @@ var actions = {
           case 4:
           case "end":
             return _context3.stop();
+        }
+      }
+    });
+  },
+  currentUser: function currentUser(context) {
+    var response, user;
+    return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function currentUser$(_context4) {
+      while (1) {
+        switch (_context4.prev = _context4.next) {
+          case 0:
+            _context4.next = 2;
+            return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get('/api/user'));
+
+          case 2:
+            response = _context4.sent;
+            // response.dataがの場合はnullを入れてそれをsetUserする
+            user = response.data || null;
+            context.commit('setUser', user);
+
+          case 5:
+          case "end":
+            return _context4.stop();
         }
       }
     });
