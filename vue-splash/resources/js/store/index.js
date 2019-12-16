@@ -7,7 +7,8 @@ Vue.use(Vuex)
 
 const store = new Vuex.Store({
   modules: {
-    auth
+    auth,
+    error
   }
 })
 
