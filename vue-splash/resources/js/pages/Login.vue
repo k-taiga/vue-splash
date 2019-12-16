@@ -30,6 +30,17 @@
     <div class="panel" v-show="tab === 2">Register Form
       <div class="panel" v-show="tab === 2">
         <form class="form" @submit.prevent="register">
+          <div v-if="registerErrors" class="errors">
+            <ul v-if="registerErrors.name">
+              <li v-for="msg in registerErrors.name" :key="msg">{{ msg }}</li>
+            </ul>
+            <ul v-if="registerErrors.email">
+              <li v-for="msg in registerErrors.email" :key="msg">{{ msg }}</li>
+            </ul>
+            <ul v-if="registerErrors.password">
+              <li v-for="msg in registerErrors.password" :key="msg">{{ msg }}</li>
+            </ul>
+          </div>
           <label for="username">Name</label>
           <input type="text" class="form__item" id="username" v-model="registerForm.name">
           <label for="email">Email</label>
@@ -73,13 +84,17 @@ export default {
     },
     loginErrors () {
       return this.$store.state.auth.loginErrorMessages
+    },
+    registerErrors () {
+      return this.$store.state.auth.registerErrorMessages
     }
 
     // mapStateで上記の記述をまとめられる
     // 機能は算出プロパティとストアのステートをマッピングする
     // ...mapState({
     //   apiStatus: state => state.auth.apiStatus,
-    //   loginErrors: state => state.auth.loginErrorMessages
+    //   loginErrors: state => state.auth.loginErrorMessages,
+    //   registerErrors: state => state.auth.registerErrorMessages
     // })
   },
   methods: {
@@ -98,10 +113,15 @@ export default {
       await this.$store.dispatch('auth/register', this.registerForm)
       // awaitで非同期が返ってきたらrouterのpushメソッドでrouter.jsで定義した/のルートのディレクトリに移動する
       // これもVue.use(VueRouter)で記述しているため使える
-      this.$router.push('/')
+
+      // apiStatusを見てからトップページに移動するか判断
+      if (this.apiStatus) {
+        this.$router.push('/')
+      }
     },
     clearError () {
-      this.$store.commit('auth/seLoginErrorMessages', null)
+      this.$store.commit('auth/setLoginErrorMessages', null)
+      this.$store.commit('auth/setRegisterErrorMessages', null)
     },
     // Login.vueのコンポーネント作成時エラー文を消す
     created () {
