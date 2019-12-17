@@ -7,7 +7,11 @@ RUN apt-get update \
 git \
 zip \
 unzip \
-vim
+vim \
+libjpeg-dev \
+libfreetype6-dev \
+&& docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
+    && docker-php-ext-install -j$(nproc) gd
 
 # install nodejs
 RUN curl -sL https://deb.nodesource.com/setup_10.x | bash -
@@ -16,6 +20,8 @@ RUN apt-get install -y nodejs
 RUN apt-get update \
     && apt-get install -y libpq-dev \
     && docker-php-ext-install pdo_mysql pdo_pgsql
+
+
 
 
 WORKDIR /var/www/html

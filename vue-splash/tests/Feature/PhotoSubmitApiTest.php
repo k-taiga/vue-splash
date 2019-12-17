@@ -34,7 +34,7 @@ class PhotoSubmitApiTest extends TestCase
         Storage::fake('s3');
 
         $response = $this->actingAs($this->user)
-            ->json('POST', route('photo.crate'), [
+            ->json('POST', route('photo.create'), [
                 // ダミーファイルを作成し送信
                 'photo' => UploadedFile::fake()->image('photo.jpg'),
             ]);
@@ -58,7 +58,7 @@ class PhotoSubmitApiTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->json('POST', route('photo.create'), [
-                'photo' => UploadedFile::fake()->image('photo.jpg');
+                'photo' => UploadedFile::fake()->image('photo.jpg'),
             ]);
 
         // レスポンスがINTERNAL SERVER ERRORであること
@@ -78,7 +78,7 @@ class PhotoSubmitApiTest extends TestCase
 
         $response = $this->actingAs($this->user)
             ->json('POST', route('photo.create'), [
-                'photo' => UploadedFile::fake()->image('photo.jpg');
+                'photo' => UploadedFile::fake()->image('photo.jpg'),
             ]);
 
         // レスポンスがINTERNAL SERVER ERRORであること
