@@ -14,3 +14,6 @@ Route::get('/user', function() {
 	// いなければnullを返すがHTTPレスポンスに変わるときに""になる
 	return Auth::user();
 })->name('user');
+
+// 写真のPOST
+Route::post('/photos', 'PhotoController@create')->name('photo.create');
