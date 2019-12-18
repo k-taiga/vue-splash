@@ -1890,113 +1890,9 @@ __webpack_require__.r(__webpack_exports__);
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/PhotoForm.vue?vue&type=script&lang=js& ***!
   \********************************************************************************************************************************************************************/
 /*! exports provided: default */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
+/***/ (function(module, exports) {
 
-"use strict";
-__webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/regenerator */ "./node_modules/@babel/runtime/regenerator/index.js");
-/* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
-
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-/* harmony default export */ __webpack_exports__["default"] = ({
-  props: {
-    // valueを受け取るため
-    value: {
-      // valueは表示、非表示で表現する
-      type: Boolean,
-      required: true
-    }
-  },
-  data: function data() {
-    return {
-      preview: null,
-      // 選択中のファイルを格納するため
-      photo: null
-    };
-  },
-  methods: {
-    // フォームでファイルが選択されたら実行
-    onFileChange: function onFileChange(event) {
-      var _this = this;
-
-      // 何も選択されていなかったら処理を中断する
-      if (event.target.files.length === 0) {
-        this.reset();
-        return false;
-      } // ファイルが画像じゃなかったら処理を中断する
-      // 正規表現でファイルのタイプ属性がimageかチェック
-
-
-      if (!event.target.files[0].type.match('image.*')) {
-        this.reset();
-        return false;
-      } // FileReaderクラスのインスタンスを作成
-
-
-      var reader = new FileReader(); // ファイルを読み込み終わったタイミングでする処理
-
-      reader.onload = function (e) {
-        // previewに読み込み結果を代入する
-        // previewに値が入ると<output>につけたv-ifがtrueと判定される
-        // また<output>内部の<img>のsrc属性はpreviewの値を参照しているので
-        // 結果として画像が表示される
-        _this.preview = e.target.result;
-      }; // ファイルを読み込みデータURL形式で受け取る
-
-
-      reader.readAsDataURL(event.target.files[0]);
-      this.photo = event.target.files[0];
-    },
-    reset: function reset() {
-      this.preview = '';
-      this.photo = null; // this.$elはコンポーネントそのもののDOM要素を指す
-
-      this.$el.querySelector('input[type="file"]').value = null;
-    },
-    submit: function submit() {
-      var formData, response;
-      return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.async(function submit$(_context) {
-        while (1) {
-          switch (_context.prev = _context.next) {
-            case 0:
-              // HTML5 の FormData API
-              formData = new FormData(); // 送信したいものをappendする
-
-              formData.append('photo', this.photo);
-              _context.next = 4;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/photos', formData));
-
-            case 4:
-              response = _context.sent;
-              this.reset; // inputイベントを発行して自動的にフォームを閉じる
-              // NavbarのshowFormの値をfalseにしてその値を自身で受け取る
-
-              this.$emit('input', false);
-              this.$router.push("/photos/".concat(response.data.id));
-
-            case 8:
-            case "end":
-              return _context.stop();
-          }
-        }
-      }, null, this);
-    }
-  }
-});
+throw new Error("Module build failed (from ./node_modules/babel-loader/lib/index.js):\nSyntaxError: /var/www/html/vue-splash/resources/js/components/PhotoForm.vue: Unexpected token (22:0)\n\n\u001b[0m \u001b[90m 20 | \u001b[39m\u001b[90m//\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 21 | \u001b[39m\u001b[0m\n\u001b[0m\u001b[31m\u001b[1m>\u001b[22m\u001b[39m\u001b[90m 22 | \u001b[39m\u001b[33m<\u001b[39m\u001b[33m!\u001b[39m\u001b[33m--\u001b[39m エラーコードインポート \u001b[33m--\u001b[39m\u001b[33m>\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m    | \u001b[39m\u001b[31m\u001b[1m^\u001b[22m\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 23 | \u001b[39m\u001b[36mimport\u001b[39m { \u001b[33mCREATED\u001b[39m\u001b[33m,\u001b[39m \u001b[33mUNPROCESSABLE_ENTITY\u001b[39m } from \u001b[32m'../util'\u001b[39m\u001b[0m\n\u001b[0m \u001b[90m 24 | \u001b[39m\u001b[36mexport\u001b[39m \u001b[36mdefault\u001b[39m {\u001b[0m\n\u001b[0m \u001b[90m 25 | \u001b[39m\tprops\u001b[33m:\u001b[39m {\u001b[0m\n    at Parser.raise (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:6983:17)\n    at Parser.unexpected (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8376:16)\n    at Parser.parseExprAtom (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9637:20)\n    at Parser.parseExprSubscripts (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9213:23)\n    at Parser.parseMaybeUnary (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9193:21)\n    at Parser.parseExprOps (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9059:23)\n    at Parser.parseMaybeConditional (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:9032:23)\n    at Parser.parseMaybeAssign (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8978:21)\n    at Parser.parseExpression (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:8928:23)\n    at Parser.parseStatementContent (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10795:23)\n    at Parser.parseStatement (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10666:17)\n    at Parser.parseBlockOrModuleBlockBody (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11242:25)\n    at Parser.parseBlockBody (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:11229:10)\n    at Parser.parseTopLevel (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:10597:10)\n    at Parser.parse (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:12107:10)\n    at parse (/var/www/html/vue-splash/node_modules/@babel/parser/lib/index.js:12158:38)\n    at parser (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/normalize-file.js:168:34)\n    at normalizeFile (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/normalize-file.js:102:11)\n    at runSync (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/index.js:44:43)\n    at runAsync (/var/www/html/vue-splash/node_modules/@babel/core/lib/transformation/index.js:35:14)\n    at process.nextTick (/var/www/html/vue-splash/node_modules/@babel/core/lib/transform.js:34:34)\n    at process._tickCallback (internal/process/next_tick.js:61:11)");
 
 /***/ }),
 
@@ -3432,6 +3328,20 @@ var render = function() {
           }
         },
         [
+          _vm.errors
+            ? _c("div", { staticClass: "errors" }, [
+                _vm.errors.photo
+                  ? _c(
+                      "ul",
+                      _vm._l(_vm.errors.photo, function(msg) {
+                        return _c("li", { key: msg }, [_vm._v(_vm._s(msg))])
+                      }),
+                      0
+                    )
+                  : _vm._e()
+              ])
+            : _vm._e(),
+          _vm._v(" "),
           _c("input", {
             staticClass: "form__item",
             attrs: { type: "file" },
@@ -17120,7 +17030,7 @@ var actions = {
       while (1) {
         switch (_context2.prev = _context2.next) {
           case 0:
-            context.commit('setApiStatus', null); //　通信成功でも失敗でもレスポンスを返す
+            context.commit('setApiStatus', null); // 通信成功でも失敗でもレスポンスを返す
 
             _context2.next = 3;
             return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.post('/api/login', data));
@@ -17372,6 +17282,11 @@ var INTERNAL_SERVER_ERROR = 500;
 
 __webpack_require__(/*! /var/www/html/vue-splash/resources/js/app.js */"./resources/js/app.js");
 module.exports = __webpack_require__(/*! /var/www/html/vue-splash/resources/sass/app.scss */"./resources/sass/app.scss");
+
+
+/***/ })
+
+/******/ });ule.exports = __webpack_require__(/*! /var/www/html/vue-splash/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })

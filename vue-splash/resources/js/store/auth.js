@@ -61,7 +61,7 @@ const actions = {
   // ログイン
   async login (context, data) {
     context.commit('setApiStatus', null)
-    //　通信成功でも失敗でもレスポンスを返す
+    // 通信成功でも失敗でもレスポンスを返す
     const response = await axios.post('/api/login', data)
 
     if (response.status === OK ) {
