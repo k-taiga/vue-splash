@@ -80,6 +80,7 @@ export default {
 			// inputイベントを発行して自動的にフォームを閉じる
 			// NavbarのshowFormの値をfalseにしてその値を自身で受け取る
 			this.$emit('input', false)
+			this.$router.push(`/photos/${response.data.id}`)
 		}
 	}
 }
