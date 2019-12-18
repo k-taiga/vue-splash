@@ -1,7 +1,10 @@
 <template>
 	<div v-show="value" class="photo-form">
 		<h2 class="title">Submit a photo</h2>
-		<form class="form" @submit.prevent="submit">
+		<div v-show="loading" class="panel">
+			<Loader>Sending your photo...</Loader>
+		</div>
+		<form v-show="! loading" class="form" @submit.prevent="submit">
       <div v-if="errors" class="errors">
         <ul v-if="errors.photo">
           <li v-for="msg in errors.photo" :key="msg">{{ msg }}</li>
@@ -19,9 +22,12 @@
 </template>
 
 <script>
-<!-- エラーコードインポート -->
 import { CREATED, UNPROCESSABLE_ENTITY } from '../util'
+import Loader from './Loader.vue'
 export default {
+	components: {
+		Loader
+	},
 	props: {
 		// valueを受け取るため
 		value: {
@@ -32,6 +38,7 @@ export default {
 	},
 	data () {
 		return {
+			loading: false,
 			preview: null,
 			// 選択中のファイルを格納するため
 			photo: null,
@@ -78,11 +85,15 @@ export default {
 			this.$el.querySelector('input[type="file"]').value = null
 		},
 		async submit () {
+			// loading表示
+			this.loading = true
 			// HTML5 の FormData API
 			const formData = new FormData()
 			// 送信したいものをappendする
 			formData.append('photo', this.photo)
 			const response = await axios.post('/api/photos', formData)
+
+			this.loading = false
 
 			if (response.status === UNPROCESSABLE_ENTITY) {
 				this.errors = response.data.errors

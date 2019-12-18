@@ -21,7 +21,7 @@ const routes = [
 		component: PhotoList
 	},
 	{
-		path: '/photos/:id,
+		path: '/photos/:id',
 		component: PhotoDetail,
 		props: true
 	},
