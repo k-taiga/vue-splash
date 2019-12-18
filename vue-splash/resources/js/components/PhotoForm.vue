@@ -1,7 +1,7 @@
 <template>
 	<div v-show="value" class="photo-form">
 		<h2 class="title">Submit a photo</h2>
-		<form class="form">
+		<form class="form" @submit.prevent="submit">
 			<input class="form__item" type="file" @change="onFileChange">
 			<output class="form__output" v-if="preview">
 				<img :src="preview" alt="">
@@ -25,7 +25,9 @@ export default {
 	},
 	data () {
 		return {
-			preview: null
+			preview: null,
+			// 選択中のファイルを格納するため
+			photo: null
 		}
 	},
 	methods: {
@@ -58,11 +60,26 @@ export default {
 
 			// ファイルを読み込みデータURL形式で受け取る
 			reader.readAsDataURL(event.target.files[0])
+
+			this.photo = event.target.files[0]
 		},
 		reset () {
 			this.preview = ''
+			this.photo = null
 			// this.$elはコンポーネントそのもののDOM要素を指す
 			this.$el.querySelector('input[type="file"]').value = null
+		},
+		async submit () {
+			// HTML5 の FormData API
+			const formData = new FormData()
+			// 送信したいものをappendする
+			formData.append('photo', this.photo)
+			const response = await axios.post('/api/photos', formData)
+
+			this.reset
+			// inputイベントを発行して自動的にフォームを閉じる
+			// NavbarのshowFormの値をfalseにしてその値を自身で受け取る
+			this.$emit('input', false)
 		}
 	}
 }
