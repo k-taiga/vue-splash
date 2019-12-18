@@ -1930,12 +1930,14 @@ __webpack_require__.r(__webpack_exports__);
 
       // 何も選択されていなかったら処理を中断する
       if (event.target.files.length === 0) {
+        this.reset();
         return false;
       } // ファイルが画像じゃなかったら処理を中断する
       // 正規表現でファイルのタイプ属性がimageかチェック
 
 
       if (!event.target.files[0].type.match('image.*')) {
+        this.reset();
         return false;
       } // FileReaderクラスのインスタンスを作成
 
@@ -1952,6 +1954,11 @@ __webpack_require__.r(__webpack_exports__);
 
 
       reader.readAsDataURL(event.target.files[0]);
+    },
+    reset: function reset() {
+      this.preview = ''; // this.$elはコンポーネントそのもののDOM要素を指す
+
+      this.$el.querySelector('input[type="file"]').value = null;
     }
   }
 });

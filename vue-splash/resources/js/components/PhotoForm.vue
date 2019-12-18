@@ -33,12 +33,14 @@ export default {
 		onFileChange (event) {
 			// 何も選択されていなかったら処理を中断する
 			if (event.target.files.length === 0) {
+				this.reset()
 				return false
 			}
 
 			// ファイルが画像じゃなかったら処理を中断する
 			// 正規表現でファイルのタイプ属性がimageかチェック
 			if (! event.target.files[0].type.match('image.*')) {
+				this.reset()
 				return false
 			}
 
@@ -56,6 +58,11 @@ export default {
 
 			// ファイルを読み込みデータURL形式で受け取る
 			reader.readAsDataURL(event.target.files[0])
+		},
+		reset () {
+			this.preview = ''
+			// this.$elはコンポーネントそのもののDOM要素を指す
+			this.$el.querySelector('input[type="file"]').value = null
 		}
 	}
 }
