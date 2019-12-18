@@ -6,7 +6,8 @@
     </RouterLink>
     <div class="navbar__menu">
       <div v-if="isLogin" class="navbar__item">
-        <button class="button">
+        <!-- ボタンをクリックした時true -->
+        <button class="button" @click="showForm = ! showForm">
           <i class="icon ion-md-add"></i>
           Submit a photo
         </button>
@@ -21,10 +22,23 @@
       </div>
     </div>
   </nav>
+  <!-- PhotoFormにshowFormデータ変数を渡してそれがtrueなら表示する -->
+  <PhotoForm v-model="showForm" />
 </template>
 
 <script>
+import PhotoForm from './PhotoForm.vue'
+
 export default {
+  components: {
+    PhotoForm
+  },
+  data () {
+    return {
+      // 最初は非表示
+      showForm: false
+    }
+  },
   computed: {
     isLogin () {
       return this.$store.getters['auth/check']
