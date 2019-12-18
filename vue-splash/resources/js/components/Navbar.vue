@@ -21,9 +21,9 @@
         </RouterLink>
       </div>
     </div>
+    <!-- PhotoFormにshowFormデータ変数を渡してそれがtrueなら表示する -->
+    <PhotoForm v-model="showForm" />
   </nav>
-  <!-- PhotoFormにshowFormデータ変数を渡してそれがtrueなら表示する -->
-  <PhotoForm v-model="showForm" />
 </template>
 
 <script>

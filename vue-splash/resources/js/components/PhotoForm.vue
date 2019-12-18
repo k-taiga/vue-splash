@@ -1,14 +1,15 @@
 <template>
 	<div v-show="value" class="photo-form">
-		<div class="photo-form">
-			<h2 class="title">Submit a photo</h2>
-			<form class="form">
-				<input class="form__item" type="file">
-				<div class="form__button">
-					<button type="submit" class="button button--inverse">submit</button>
-				</div>
-			</form>
-		</div>
+		<h2 class="title">Submit a photo</h2>
+		<form class="form">
+			<input class="form__item" type="file" @change="onFileChange">
+			<output class="form__output" v-if="preview">
+				<img :src="preview" alt="">
+			</output>
+			<div class="form__button">
+				<button type="submit" class="button button--inverse">submit</button>
+			</div>
+		</form>
 	</div>
 </template>
 
@@ -20,6 +21,41 @@ export default {
 			// valueは表示、非表示で表現する
 			type: Boolean,
 			required: true
+		}
+	},
+	data () {
+		return {
+			preview: null
+		}
+	},
+	methods: {
+		// フォームでファイルが選択されたら実行
+		onFileChange (event) {
+			// 何も選択されていなかったら処理を中断する
+			if (event.target.files.length === 0) {
+				return false
+			}
+
+			// ファイルが画像じゃなかったら処理を中断する
+			// 正規表現でファイルのタイプ属性がimageかチェック
+			if (! event.target.files[0].type.match('image.*')) {
+				return false
+			}
+
+			// FileReaderクラスのインスタンスを作成
+			const reader = new FileReader()
+
+			// ファイルを読み込み終わったタイミングでする処理
+			reader.onload = e => {
+				// previewに読み込み結果を代入する
+				// previewに値が入ると<output>につけたv-ifがtrueと判定される
+	      // また<output>内部の<img>のsrc属性はpreviewの値を参照しているので
+	      // 結果として画像が表示される
+				this.preview = e.target.result
+			}
+
+			// ファイルを読み込みデータURL形式で受け取る
+			reader.readAsDataURL(event.target.files[0])
 		}
 	}
 }
