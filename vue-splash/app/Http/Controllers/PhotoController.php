@@ -20,8 +20,17 @@ class PhotoController extends Controller
 
   public function __construct()
   {
-    // 認証が通らないと使えない
-    $this->middleware('auth');
+    // index以外認証が通らないと使えない
+     $this->middleware('auth')->except(['index']);
+  }
+
+  public function index()
+  {
+    // withメソッドはリレーションを事前にロードしておくメソッド　N+1対策
+    $photos = Photo::with(['owner'])
+        ->orderBy(Photo::CREATED_AT,'desc')->paginate();
+
+    return $photos;
   }
 
   /**
@@ -64,11 +73,4 @@ class PhotoController extends Controller
     return response($photo, 201);
   }
 
-  public function index()
-  {
-    $photos = Photo::with(['owner'])
-        ->orderBy(Photo::CREATED_AT,'desc')->paginate();
-
-    return $photos;
-  }
 }
