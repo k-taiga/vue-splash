@@ -21,7 +21,7 @@ class PhotoController extends Controller
   public function __construct()
   {
     // index以外認証が通らないと使えない
-     $this->middleware('auth')->except(['index']);
+     $this->middleware('auth')->except(['index', 'download']);
   }
 
   public function index()
@@ -74,5 +74,25 @@ class PhotoController extends Controller
 
     return response($photo, 201);
   }
+
+ /**
+ * 写真ダウンロード
+ * @param Photo $photo
+ * @return \Illuminate\Http\Response
+ */
+ public function download(Photo $photo)
+ {
+   // 写真の存在チェック
+   if (! Storage::cloud()->exists($photo->filename)) {
+      abort(404);
+   }
+
+   $headers = [
+      'Content-Type' => 'application/octet-stream',
+      'Content-Disposition' => 'attachment; filename="' . $photo->filename .'"',
+   ];
+
+   return response(Storage::cloud()->get($photo->filename), 200, $headers);
+ }
 
 }
