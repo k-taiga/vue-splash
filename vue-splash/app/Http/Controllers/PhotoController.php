@@ -26,7 +26,7 @@ class PhotoController extends Controller
 
   public function index()
   {
-    // withメソッドはリレーションを事前にロードしておくメソッド　N+1対策
+    // withメソッドはリレーションを事前にロードしておくメソッド N+1対策
     $photos = Photo::with(['owner'])
         ->orderBy(Photo::CREATED_AT,'desc')->paginate();
 
@@ -54,6 +54,7 @@ class PhotoController extends Controller
     // putFileだとランダムな名前で保存される
     Storage::cloud()->putFileAs('', $request->photo, $photo->filename,'public');
 
+
     // データベースエラー時にファイル削除(ロールバック）を行うためトランザクションを行う
     DB::beginTransaction();
 
@@ -69,6 +70,7 @@ class PhotoController extends Controller
       Storage::cloud()->delete($photo->filename);
       throw $exception;
     }
+
 
     return response($photo, 201);
   }
