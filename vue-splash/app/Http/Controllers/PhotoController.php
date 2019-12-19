@@ -63,4 +63,12 @@ class PhotoController extends Controller
 
     return response($photo, 201);
   }
+
+  public function index()
+  {
+    $photos = Photo::with(['owner'])
+        ->orderBy(Photo::CREATED_AT,'desc')->paginate();
+
+    return $photos;
+  }
 }
