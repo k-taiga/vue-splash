@@ -54,7 +54,7 @@ const actions = {
 
     if (response.status === UNPROCESSABLE_ENTITY) {
         context.commit('setRegisterErrorMessages', response.data.errors)
-     }else {
+     } else {
        context.commit('error/setCode', response.status, { root:true })
      }
   },
