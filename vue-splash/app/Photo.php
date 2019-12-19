@@ -12,6 +12,17 @@ class Photo extends Model
 
 	const ID_LENGTH = 12;
 
+	// JSONに含めるアクセサ
+	protected $appends = [
+	    'url',
+	];
+
+    // JSONに含める属性 反対に含めないものはhidden
+    protected $visible = [
+        'id', 'owner', 'url',
+    ];
+
+
 	public function __construct(array $attributes = [])
 	{
 		parent::__construct($attributes);
@@ -43,5 +54,25 @@ class Photo extends Model
 		}
 
 		return $id;
+	}
+
+	/**
+	 * リレーションシップ - usersテーブル
+	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+	 */
+	public function owner()
+	{
+		// user_idがuserモデルのidに紐づく
+		return $this->belongsTo('App\User', 'user_id', 'id', 'users');
+	}
+
+	/**
+	 * アクセサ - url
+	 * @return string
+	 */
+	public function getUrlAttribute()
+	{
+		// url メソッドは S3 上のファイルの公開 URL を返却
+		return Storage::cloud()->url($this->attributes['filename']);
 	}
 }
