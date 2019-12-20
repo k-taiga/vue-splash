@@ -18,7 +18,13 @@ Vue.use(VueRouter)
 const routes = [
 	{
 		path: '/',
-		component: PhotoList
+		component: PhotoList,
+		props: route => {
+			const page = route.query.page
+			// routeのクエリパラメータの値をpageで返す
+			// 正規表現で整数であればpage * 1,そうじゃなければ1
+			return { page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1}
+		}
 	},
 	{
 		path: '/photos/:id',
