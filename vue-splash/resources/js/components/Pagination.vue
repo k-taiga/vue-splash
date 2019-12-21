@@ -9,7 +9,7 @@
      v-fi="! isLastPage"
      :to="`/?page=${currentPage + 1}`"
      class="button"
-    >&laquo; prev</RouterLink>
+    >next &raquo;</RouterLink>
   </div>
 </template>
 

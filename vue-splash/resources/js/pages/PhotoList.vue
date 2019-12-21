@@ -9,20 +9,25 @@
         @like="onLikeClick"
       />
     </div>
+    <Pagination :current-page="currentPage" :last-page="lastPage" />
   </div>
 </template>
 
 <script>
 import { OK } from '../util'
 import Photo from '../components/Photo.vue'
+import Pagination from '../components/Pagination.vue'
 
 export default {
   components: {
-    Photo
+    Photo,
+    Pagination
   },
   data () {
     return {
-      photos: []
+      photos: [],
+      currentPage: 0,
+      lastPage: 0
     }
   },
   methods: {
@@ -37,6 +42,9 @@ export default {
       // response.dataでJSON取得、そのJSONの中にdataとして写真データが入っている
       // photoのモデルでjsonに含める値をvisibleとappendでしたやつが入っている
       this.photos = response.data.data
+      // APIのレスポンスにlaravel側でpageも入っている
+      this.currentPage = response.data.current_page
+      this.lastPage = response.data.last_page
     }
   },
   // $routeを監視していてページがここに切り替わったらfetchPhotosしてくる
