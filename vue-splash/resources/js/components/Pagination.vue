@@ -7,7 +7,7 @@
     >&laquo; prev</RouterLink>
     <RouterLink
      v-fi="! isLastPage"
-     :to="`/?page=${currentPage - 1}`"
+     :to="`/?page=${currentPage + 1}`"
      class="button"
     >&laquo; prev</RouterLink>
   </div>
@@ -16,10 +16,12 @@
 <script>
 export default {
   props: {
+    // 現ページ
     currentPage: {
       type: Number,
       required: true
     },
+    // 総ページ
     lastPage: {
       type: Number,
       required: true
