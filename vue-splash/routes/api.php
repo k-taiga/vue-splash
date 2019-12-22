@@ -23,3 +23,6 @@ Route::get('/photos', 'PhotoController@index')->name('photo.index');
 
 // 写真の詳細GET
 Route::get('/photos/{id}', 'PhotoController@show')->name('photo.show');
+
+// コメントのPOST
+Route::post('/photos/{photo}/comments', 'PhotoController@addComment')->name('photo.comment');
