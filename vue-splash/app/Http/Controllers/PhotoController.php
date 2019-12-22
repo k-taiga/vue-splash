@@ -20,8 +20,8 @@ class PhotoController extends Controller
 
   public function __construct()
   {
-    // index以外認証が通らないと使えない
-     $this->middleware('auth')->except(['index', 'download']);
+    // 認証が通らなくても使えるメソッド
+     $this->middleware('auth')->except(['index', 'download', 'show']);
   }
 
   public function index()
@@ -93,6 +93,19 @@ class PhotoController extends Controller
    ];
 
    return response(Storage::cloud()->get($photo->filename), 200, $headers);
+ }
+
+ /**
+ * 写真詳細
+ * @param string $id
+ * @return Photo
+ */
+ public function show(string $id)
+ {
+  $photo = Photo::where('id', $id)->with(['owner'])->first();
+
+  // abortじゃなければ$photoを返す 見つからなけらばabort
+  return $photo ?? abort(404);
  }
 
 }

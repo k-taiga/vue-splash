@@ -21,5 +21,5 @@ Route::post('/photos', 'PhotoController@create')->name('photo.create');
 // 写真の一覧GET
 Route::get('/photos', 'PhotoController@index')->name('photo.index');
 
-// 写真のGET
+// 写真の詳細GET
 Route::get('/photos/{id}', 'PhotoController@show')->name('photo.show');

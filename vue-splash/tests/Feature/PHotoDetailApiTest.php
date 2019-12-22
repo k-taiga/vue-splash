@@ -6,6 +6,7 @@ use App\Photo;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Storage;
 
 class PHotoDetailApiTest extends TestCase
 {
@@ -14,12 +15,16 @@ class PHotoDetailApiTest extends TestCase
 
     public function test_return_correct_json()
     {
+        Storage::fake('s3');
         factory(Photo::class)->create();
         $photo = Photo::first();
 
-        $response = $this.json('GET', route('photo.show', [
+        $response = $this->json('GET', route('photo.show', [
             'id' => $photo->id,
         ]));
+
+        // var_dump($photo);
+        // exit;
 
         $response->assertStatus(200)
             // JSONのフォーマットチェック
