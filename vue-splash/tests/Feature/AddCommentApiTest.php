@@ -8,6 +8,8 @@ use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
+use Illuminate\Support\Facades\Storage;
+
 class AddCommentApiTest extends TestCase
 {
 
@@ -22,6 +24,7 @@ class AddCommentApiTest extends TestCase
 
     public function test_add_comment()
     {
+        Storage::fake('s3');
         factory(Photo::class)->create();
         $photo = Photo::first();
 

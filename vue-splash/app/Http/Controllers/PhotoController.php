@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 // フォームリクエスト
 use App\Http\Requests\StorePhoto;
+use App\Http\Requests\StoreComment;
 
 // モデル
 use App\Photo;
+use App\Comment;
 
 use Illuminate\Http\Request;
 
@@ -75,37 +77,52 @@ class PhotoController extends Controller
     return response($photo, 201);
   }
 
- /**
- * 写真ダウンロード
- * @param Photo $photo
- * @return \Illuminate\Http\Response
- */
- public function download(Photo $photo)
- {
-   // 写真の存在チェック
-   if (! Storage::cloud()->exists($photo->filename)) {
-      abort(404);
-   }
+  /**
+  * 写真ダウンロード
+  * @param Photo $photo
+  * @return \Illuminate\Http\Response
+  */
+  public function download(Photo $photo)
+  {
+    // 写真の存在チェック
+    if (! Storage::cloud()->exists($photo->filename)) {
+       abort(404);
+    }
+    $headers = [
+       'Content-Type' => 'application/octet-stream',
+       'Content-Disposition' => 'attachment; filename="' . photo->filename .'"',
+    ];
+    return response(Storage::cloud()->get($photo->filename), 20, $headers);
+  }
 
-   $headers = [
-      'Content-Type' => 'application/octet-stream',
-      'Content-Disposition' => 'attachment; filename="' . $photo->filename .'"',
-   ];
-
-   return response(Storage::cloud()->get($photo->filename), 200, $headers);
+  /**
+  * 写真詳細
+  * @param string $id
+  * @return Photo
+  */
+  public function show(string $id)
+  {
+   $photo = Photo::where('id', $id)->with(['owner'])->first();
+   // abortじゃなければ$photoを返す 見つからなけらばabort
+   return $photo ?? abort(404);
+  }
  }
 
- /**
- * 写真詳細
- * @param string $id
- * @return Photo
- */
- public function show(string $id)
- {
-  $photo = Photo::where('id', $id)->with(['owner'])->first();
+  /**
+  * コメント投稿
+  * @param Photo $photo
+  * @param StoreComment $request
+  * @return \Illuminate\Http\Response
+  */
+  public function addComment(Photo $photo, StoreComment $request)
+  {
+    $comment = new Comment();
+    $comment->content = $request->get('content');
+    $comment->user_id = Auth::user()->id;
+    $photo->comments()->save($comment);
 
-  // abortじゃなければ$photoを返す 見つからなけらばabort
-  return $photo ?? abort(404);
- }
+    // authorリレーションをロードするためにコメントを取得し直し
+    $new_comment = Comment::where('id', $comment->id)->with('author')->first();
 
-}
+    return response($new_comment, 201);
+  }
