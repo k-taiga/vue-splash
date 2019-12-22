@@ -16,7 +16,11 @@ class PHotoDetailApiTest extends TestCase
     public function test_return_correct_json()
     {
         Storage::fake('s3');
-        factory(Photo::class)->create();
+
+        // Photoをcreateする度にCommentを3つ作成する
+        factory(Photo::class)->create()->each(function ($photo) {
+            $photo->comments()->saveMany(factory(Comment::class, 3)->make());
+        });
         $photo = Photo::first();
 
         $response = $this->json('GET', route('photo.show', [
@@ -34,6 +38,17 @@ class PHotoDetailApiTest extends TestCase
                 'owner' => [
                     'name' => $photo->owner->name,
                 ],
+                'comment' => $photo->comments
+                    ->sortByDesc('id')
+                    ->map(function ($comment) {
+                        return [
+                            'author' => [
+                                'name' => $comment->author->name,
+                            ],
+                            'content' => $comment->content,
+                        ];
+                    })
+                ->all(),
             ]);
     }
 }
