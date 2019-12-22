@@ -24,7 +24,7 @@ class Photo extends Model
 
     // JSONに含める属性 反対に含めないものはhidden
     protected $visible = [
-        'id', 'owner', 'url',
+        'id', 'owner', 'url','comments'
     ];
 
 
@@ -79,5 +79,14 @@ class Photo extends Model
 	{
 		// url メソッドは S3 上のファイルの公開 URL を返却
 		return Storage::cloud()->url($this->attributes['filename']);
+	}
+
+	/**
+	 * リレーションシップ - commentsテーブル
+	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
+	 */
+	public function comments()
+	{
+		return $this->hasMany('App\Comment')->orderBy('id', 'desc');
 	}
 }
