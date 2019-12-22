@@ -18,5 +18,8 @@ Route::get('/user', function() {
 // 写真のPOST
 Route::post('/photos', 'PhotoController@create')->name('photo.create');
 
-// 写真のGET
+// 写真の一覧GET
 Route::get('/photos', 'PhotoController@index')->name('photo.index');
+
+// 写真のGET
+Route::get('/photos/{id}', 'PhotoController@show')->name('photo.show');
