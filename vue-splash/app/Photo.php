@@ -12,6 +12,9 @@ class Photo extends Model
 	// プライマリーキーの型
 	protected $keyType = 'string';
 
+	// laravelのデフォルトは15ページ
+	protected $perPage = 15;
+
 	const ID_LENGTH = 12;
 
 	// JSONに含めるアクセサ

@@ -1922,6 +1922,55 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=script&lang=js&":
+/*!*********************************************************************************************************************************************************************!*\
+  !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pagination.vue?vue&type=script&lang=js& ***!
+  \*********************************************************************************************************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+/* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    // 現ページ
+    currentPage: {
+      type: Number,
+      required: true
+    },
+    // 総ページ
+    lastPage: {
+      type: Number,
+      required: true
+    }
+  },
+  computed: {
+    isFirstPage: function isFirstPage() {
+      return this.currentPage === 1;
+    },
+    isLastPage: function isLastPage() {
+      return this.currentPage === this.lastPage;
+    }
+  }
+});
+
+/***/ }),
+
 /***/ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Photo.vue?vue&type=script&lang=js&":
 /*!****************************************************************************************************************************************************************!*\
   !*** ./node_modules/babel-loader/lib??ref--4-0!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Photo.vue?vue&type=script&lang=js& ***!
@@ -1968,11 +2017,49 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     item: {
       type: Object,
       required: true
+    }
+  },
+  data: function data() {
+    return {
+      landscape: false,
+      portrait: false
+    };
+  },
+  computed: {
+    imageClass: function imageClass() {
+      return {
+        // 横長クラス
+        'photo__image--landscape': this.landscape,
+        // 縦長クラス
+        'photo__image--portrait': this.portrait
+      };
+    }
+  },
+  methods: {
+    setAspectRatio: function setAspectRatio() {
+      if (!this.$refs.image) {
+        return false;
+      }
+
+      var height = this.$refs.image.clientHeight;
+      var width = this.$refs.image.clientWidth; // 縦横比率 3:4 よりも横長の画像
+
+      this.landscape = height / width <= 0.75; // 横長でなければ縦長
+
+      this.portrait = !this.landscape;
+    }
+  },
+  watch: {
+    $route: function $route() {
+      this.landscape = false;
+      this.portrait = false;
     }
   }
 });
@@ -2318,6 +2405,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _util__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../util */ "./resources/js/util.js");
 /* harmony import */ var _components_Photo_vue__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../components/Photo.vue */ "./resources/js/components/Photo.vue");
+/* harmony import */ var _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../components/Pagination.vue */ "./resources/js/components/Pagination.vue");
 
 //
 //
@@ -2333,15 +2421,20 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   components: {
-    Photo: _components_Photo_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+    Photo: _components_Photo_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+    Pagination: _components_Pagination_vue__WEBPACK_IMPORTED_MODULE_3__["default"]
   },
   data: function data() {
     return {
-      photos: []
+      photos: [],
+      currentPage: 0,
+      lastPage: 0
     };
   },
   methods: {
@@ -2352,7 +2445,7 @@ __webpack_require__.r(__webpack_exports__);
           switch (_context.prev = _context.next) {
             case 0:
               _context.next = 2;
-              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get('/api/photos'));
+              return _babel_runtime_regenerator__WEBPACK_IMPORTED_MODULE_0___default.a.awrap(axios.get("/api/photos/?page=".concat(this.page)));
 
             case 2:
               response = _context.sent;
@@ -2368,9 +2461,12 @@ __webpack_require__.r(__webpack_exports__);
             case 6:
               // response.dataでJSON取得、そのJSONの中にdataとして写真データが入っている
               // photoのモデルでjsonに含める値をvisibleとappendでしたやつが入っている
-              this.photos = response.data.data;
+              this.photos = response.data.data; // APIのレスポンスにlaravel側でpageも入っている
 
-            case 7:
+              this.currentPage = response.data.current_page;
+              this.lastPage = response.data.last_page;
+
+            case 9:
             case "end":
               return _context.stop();
           }
@@ -3695,12 +3791,12 @@ var render = function() {
         ? _c(
             "button",
             { staticClass: "button button--link", on: { click: _vm.logout } },
-            [_vm._v("Logout\r\n  ")]
+            [_vm._v("Logout\n  ")]
           )
         : _c(
             "RouterLink",
             { staticClass: "button button--link", attrs: { to: "/login" } },
-            [_vm._v("\r\n    Login / Register\r\n  ")]
+            [_vm._v("\n    Login / Register\n  ")]
           )
     ],
     1
@@ -3869,6 +3965,69 @@ render._withStripped = true
 
 /***/ }),
 
+/***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&":
+/*!*************************************************************************************************************************************************************************************************************!*\
+  !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176& ***!
+  \*************************************************************************************************************************************************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "render", function() { return render; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return staticRenderFns; });
+var render = function() {
+  var _vm = this
+  var _h = _vm.$createElement
+  var _c = _vm._self._c || _h
+  return _c(
+    "div",
+    { staticClass: "pagination" },
+    [
+      _c(
+        "RouterLink",
+        {
+          directives: [
+            {
+              name: "fi",
+              rawName: "v-fi",
+              value: !_vm.isFirstPage,
+              expression: "! isFirstPage"
+            }
+          ],
+          staticClass: "button",
+          attrs: { to: "/?page=" + (_vm.currentPage - 1) }
+        },
+        [_vm._v("« prev")]
+      ),
+      _vm._v(" "),
+      _c(
+        "RouterLink",
+        {
+          directives: [
+            {
+              name: "fi",
+              rawName: "v-fi",
+              value: !_vm.isLastPage,
+              expression: "! isLastPage"
+            }
+          ],
+          staticClass: "button",
+          attrs: { to: "/?page=" + (_vm.currentPage + 1) }
+        },
+        [_vm._v("next »")]
+      )
+    ],
+    1
+  )
+}
+var staticRenderFns = []
+render._withStripped = true
+
+
+
+/***/ }),
+
 /***/ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Photo.vue?vue&type=template&id=c0696452&":
 /*!********************************************************************************************************************************************************************************************************!*\
   !*** ./node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!./node_modules/vue-loader/lib??vue-loader-options!./resources/js/components/Photo.vue?vue&type=template&id=c0696452& ***!
@@ -3890,8 +4049,10 @@ var render = function() {
     [
       _c("figure", { staticClass: "photo__wrapper" }, [
         _c("img", {
+          ref: "image",
           staticClass: "photo__image photo__image--portrait",
-          attrs: { src: _vm.item.url, alt: "Photo by " + _vm.item.owner.name }
+          attrs: { src: _vm.item.url, alt: "Photo by " + _vm.item.owner.name },
+          on: { load: _vm.setAspectRatio }
         })
       ]),
       _vm._v(" "),
@@ -4516,21 +4677,30 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "photo-list" }, [
-    _c(
-      "div",
-      { staticClass: "grid" },
-      _vm._l(_vm.photos, function(photo) {
-        return _c("Photo", {
-          key: photo.id,
-          staticClass: "grid__item",
-          attrs: { item: photo },
-          on: { like: _vm.onLikeClick }
-        })
-      }),
-      1
-    )
-  ])
+  return _c(
+    "div",
+    { staticClass: "photo-list" },
+    [
+      _c(
+        "div",
+        { staticClass: "grid" },
+        _vm._l(_vm.photos, function(photo) {
+          return _c("Photo", {
+            key: photo.id,
+            staticClass: "grid__item",
+            attrs: { item: photo },
+            on: { like: _vm.onLikeClick }
+          })
+        }),
+        1
+      ),
+      _vm._v(" "),
+      _c("Pagination", {
+        attrs: { "current-page": _vm.currentPage, "last-page": _vm.lastPage }
+      })
+    ],
+    1
+  )
 }
 var staticRenderFns = []
 render._withStripped = true
@@ -21049,6 +21219,75 @@ __webpack_require__.r(__webpack_exports__);
 
 /***/ }),
 
+/***/ "./resources/js/components/Pagination.vue":
+/*!************************************************!*\
+  !*** ./resources/js/components/Pagination.vue ***!
+  \************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./Pagination.vue?vue&type=template&id=d7acf176& */ "./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&");
+/* harmony import */ var _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./Pagination.vue?vue&type=script&lang=js& */ "./resources/js/components/Pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport *//* harmony import */ var _node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../../node_modules/vue-loader/lib/runtime/componentNormalizer.js */ "./node_modules/vue-loader/lib/runtime/componentNormalizer.js");
+
+
+
+
+
+/* normalize component */
+
+var component = Object(_node_modules_vue_loader_lib_runtime_componentNormalizer_js__WEBPACK_IMPORTED_MODULE_2__["default"])(
+  _Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_1__["default"],
+  _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["render"],
+  _Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"],
+  false,
+  null,
+  null,
+  null
+  
+)
+
+/* hot reload */
+if (false) { var api; }
+component.options.__file = "resources/js/components/Pagination.vue"
+/* harmony default export */ __webpack_exports__["default"] = (component.exports);
+
+/***/ }),
+
+/***/ "./resources/js/components/Pagination.vue?vue&type=script&lang=js&":
+/*!*************************************************************************!*\
+  !*** ./resources/js/components/Pagination.vue?vue&type=script&lang=js& ***!
+  \*************************************************************************/
+/*! exports provided: default */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/babel-loader/lib??ref--4-0!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=script&lang=js& */ "./node_modules/babel-loader/lib/index.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=script&lang=js&");
+/* empty/unused harmony star reexport */ /* harmony default export */ __webpack_exports__["default"] = (_node_modules_babel_loader_lib_index_js_ref_4_0_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_script_lang_js___WEBPACK_IMPORTED_MODULE_0__["default"]); 
+
+/***/ }),
+
+/***/ "./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&":
+/*!*******************************************************************************!*\
+  !*** ./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176& ***!
+  \*******************************************************************************/
+/*! exports provided: render, staticRenderFns */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! -!../../../node_modules/vue-loader/lib/loaders/templateLoader.js??vue-loader-options!../../../node_modules/vue-loader/lib??vue-loader-options!./Pagination.vue?vue&type=template&id=d7acf176& */ "./node_modules/vue-loader/lib/loaders/templateLoader.js?!./node_modules/vue-loader/lib/index.js?!./resources/js/components/Pagination.vue?vue&type=template&id=d7acf176&");
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "render", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["render"]; });
+
+/* harmony reexport (safe) */ __webpack_require__.d(__webpack_exports__, "staticRenderFns", function() { return _node_modules_vue_loader_lib_loaders_templateLoader_js_vue_loader_options_node_modules_vue_loader_lib_index_js_vue_loader_options_Pagination_vue_vue_type_template_id_d7acf176___WEBPACK_IMPORTED_MODULE_0__["staticRenderFns"]; });
+
+
+
+/***/ }),
+
 /***/ "./resources/js/components/Photo.vue":
 /*!*******************************************!*\
   !*** ./resources/js/components/Photo.vue ***!
@@ -21463,7 +21702,15 @@ vue__WEBPACK_IMPORTED_MODULE_0___default.a.use(vue_router__WEBPACK_IMPORTED_MODU
 
 var routes = [{
   path: '/',
-  component: _pages_PhotoList_vue__WEBPACK_IMPORTED_MODULE_2__["default"]
+  component: _pages_PhotoList_vue__WEBPACK_IMPORTED_MODULE_2__["default"],
+  props: function props(route) {
+    var page = route.query.page; // routeのクエリパラメータの値をpageで返す
+    // 正規表現で整数であればpage * 1,そうじゃなければ1
+
+    return {
+      page: /^[1-9][0-9]*$/.test(page) ? page * 1 : 1
+    };
+  }
 }, {
   path: '/photos/:id',
   component: _pages_PhotoDetail_vue__WEBPACK_IMPORTED_MODULE_5__["default"],
@@ -21488,6 +21735,12 @@ var routes = [{
 
 var router = new vue_router__WEBPACK_IMPORTED_MODULE_1__["default"]({
   mode: 'history',
+  scrollBehavior: function scrollBehavior() {
+    return {
+      x: 0,
+      y: 0
+    };
+  },
   routes: routes
 }); // VueRouterをエクスポートする→app.jsにインポート
 

@@ -54,6 +54,9 @@ const routes = [
 // VurRouterのインスタンス作成しroutesを渡す
 const router = new VueRouter({
 	mode: 'history',
+	scrollBehavior () {
+		return { x: 0, y: 0}
+	},
 	routes
 })
 
