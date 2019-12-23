@@ -62,6 +62,15 @@ class Photo extends Model
 	}
 
 	/**
+	 * アクセサ - url
+	 * @return string
+	 */
+	public function getUrlAttribute()
+	{
+		// url メソッドは S3 上のファイルの公開 URL を返却
+		return Storage::cloud()->url($this->attributes['filename']);
+	}
+	/**
 	 * リレーションシップ - usersテーブル
 	 * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
 	 */
@@ -72,21 +81,11 @@ class Photo extends Model
 	}
 
 	/**
-	 * アクセサ - url
-	 * @return string
-	 */
-	public function getUrlAttribute()
-	{
-		// url メソッドは S3 上のファイルの公開 URL を返却
-		return Storage::cloud()->url($this->attributes['filename']);
-	}
-
-	/**
 	 * リレーションシップ - commentsテーブル
 	 * @return \Illuminate\Database\Eloquent\Relations\HasMany
 	 */
-	public function comments()
-	{
-		return $this->hasMany('App\Comment')->orderBy('id', 'desc');
-	}
+    public function comments()
+    {
+        return $this->hasMany('App\Comment')->orderBy('id', 'desc');
+    }
 }
