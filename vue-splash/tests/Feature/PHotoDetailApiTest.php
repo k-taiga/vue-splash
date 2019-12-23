@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use App\Photo;
+use App\Comment;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Illuminate\Foundation\Testing\RefreshDatabase;
@@ -23,12 +24,12 @@ class PHotoDetailApiTest extends TestCase
         });
         $photo = Photo::first();
 
+        // var_dump($photo);
+        // exit;
         $response = $this->json('GET', route('photo.show', [
             'id' => $photo->id,
         ]));
 
-        // var_dump($photo);
-        // exit;
 
         $response->assertStatus(200)
             // JSONのフォーマットチェック
@@ -38,7 +39,7 @@ class PHotoDetailApiTest extends TestCase
                 'owner' => [
                     'name' => $photo->owner->name,
                 ],
-                'comment' => $photo->comments
+                'comments' => $photo->comments
                     ->sortByDesc('id')
                     ->map(function ($comment) {
                         return [
@@ -48,7 +49,7 @@ class PHotoDetailApiTest extends TestCase
                             'content' => $comment->content,
                         ];
                     })
-                ->all(),
+                    ->all(),
             ]);
     }
 }

@@ -102,11 +102,10 @@ class PhotoController extends Controller
   */
   public function show(string $id)
   {
-   $photo = Photo::where('id', $id)->with(['owner'])->first();
+   $photo = Photo::where('id', $id)->with(['owner','comments.author'])->first();
    // abortじゃなければ$photoを返す 見つからなけらばabort
    return $photo ?? abort(404);
   }
- }
 
   /**
   * コメント投稿
